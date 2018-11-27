@@ -33,6 +33,7 @@ namespace Platform
         {
             drawPos.X = position.X + offset;
             drawPos.Y = position.Y + offset;
+            CheckCollision();
         }
 
         protected virtual void Animate(GameTime gameTime)
@@ -53,6 +54,8 @@ namespace Platform
         {
             foreach (var item in gm.gameObjects)
             {
+                if (item == this) continue;
+
                 if(position.Intersects(item.position))
                 {
                     if(position.Left <= item.position.Right)

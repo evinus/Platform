@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoLibrary;
+
 
 namespace Platform
 {
@@ -29,11 +29,11 @@ namespace Platform
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            Jump();
+            JumpFalling();
             CheckGround();
         }
 
-        private void Jump()
+        private void JumpFalling()
         {
             if(KeyMouseReader.KeyPressed(Keys.Space) && falling == false)
             {
@@ -48,27 +48,45 @@ namespace Platform
         }
         private void CheckGround()
         {
-            foreach (var item in gm.gameObjects)
+            if (falling == false)
             {
-                if(position.Bottom + 1 == item.position.Top)
-                {
-                    if( position.Left > item.position.Right)
-                    {
-                        foreach (var objects in gm.gameObjects)
+                foreach (var item in gm.gameObjects)
+                { // kollar om man står på ett object
+                    if (position.Bottom + 1 == item.position.Top && item != this)
+                    {//kollar om man är höger 
+                        if (position.Left > item.position.Right)
                         {
-                            if (objects.position.Contains(position.Left -1, position.Bottom + 1))
-                            {
-                                falling = false;
+                            foreach (var other in gm.gameObjects)
+                            {//kollar om det finns ett annat object 
+                                if (other.position.Contains(position.Left - 1, position.Bottom + 1) && other != this && item != other)
+                                {
+                                    //falling = false;
+                                }
+                                else
+                                {
+                                    falling = true;
+                                    return;
+                                }
                             }
-                            else falling = true;
                         }
+                        else if (position.Right < item.position.Left)
+                        {
+                            foreach (var other in gm.gameObjects)
+                            {
+                                if(other.position.Contains(position.Right +1,position.Bottom +1) && other != this && item != other)
+                                {
+                                    //falling = false;
+                                }
+                                else
+                                {
+                                    falling = true;
+                                    return;
+                                }
+                            }
+                        }
+
                     }
-                    else if( position.Right < item.position.Left)
-                    {
-                        
-                    }
-                    
-                }
+                } 
             }
         }
         private void CheckMoving()
