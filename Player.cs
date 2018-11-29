@@ -13,7 +13,7 @@ namespace Platform
     class Player : MovingObject
     {
         
-        Vector2 speed = new Vector2(0,0);
+        
        
 
         public Player(Texture2D texMain, Rectangle pos, GameManager gm) : base(texMain,pos,gm)
@@ -30,7 +30,10 @@ namespace Platform
         {
             base.Update(gameTime);
             JumpFalling();
+            CheckMoving();
             CheckGround();
+            position.X += (int)speed.X;
+            position.Y += (int)speed.Y;
         }
 
         private void JumpFalling()
@@ -38,62 +41,63 @@ namespace Platform
             if(KeyMouseReader.KeyPressed(Keys.Space) && falling == false)
             {
                 falling = true;
-                speed.Y += 3f;
+                speed.Y -= 3f;
             }
 
             if (falling == true)
             {
-                speed.Y -= 0.1f;
+                speed.Y += 0.1f;
             }
         }
+        
         private void CheckGround()
         {
             if (falling == false)
             {
                 foreach (var item in gm.gameObjects)
-                { // kollar om man står på ett object
-                    if (position.Bottom + 1 == item.position.Top && item != this)
-                    {//kollar om man är höger 
-                        if (position.Left > item.position.Right)
+                { 
+                    if(item != this && position.Bottom +1 == item.position.Top)
+                    {
+                        if (position.Width < item.position.Width)
                         {
-                            foreach (var other in gm.gameObjects)
-                            {//kollar om det finns ett annat object 
-                                if (other.position.Contains(position.Left - 1, position.Bottom + 1) && other != this && item != other)
-                                {
-                                    //falling = false;
-                                }
-                                else
-                                {
-                                    falling = true;
-                                    return;
-                                }
-                            }
-                        }
-                        else if (position.Right < item.position.Left)
-                        {
-                            foreach (var other in gm.gameObjects)
+                            if (position.Right >= item.position.Left && position.Right <= item.position.Right)
                             {
-                                if(other.position.Contains(position.Right +1,position.Bottom +1) && other != this && item != other)
-                                {
-                                    //falling = false;
-                                }
-                                else
-                                {
-                                    falling = true;
-                                    return;
-                                }
+                                return;
+                            } 
+                            else if(position.Left >= item.position.Left && position.Left <= item.position.Right)
+                            {
+                                return;
                             }
                         }
-
+                        else if(position.Width > item.position.Width)
+                        {
+                            if(position.Left < item.position.Left && position.Right > item.position.Right)
+                            {
+                                return;
+                            }
+                        }
                     }
-                } 
+                }
+                falling = true;
             }
         }
         private void CheckMoving()
         {
             if(KeyMouseReader.KeyDown(Keys.Left))
             {
-
+                speed.X = -1.5f;
+            }
+            else
+            {
+                speed.X = 0;
+            }
+            if(KeyMouseReader.KeyDown(Keys.Right))
+            {
+                speed.X = 1.5f;
+            }
+            else
+            {
+                speed.X = 0;
             }
         }
         

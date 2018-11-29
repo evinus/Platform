@@ -10,8 +10,16 @@ using MonoLibrary;
 
 namespace Platform
 {
-    class Map
+    public class Map
     {
+        List<Enemy> enemies = new List<Enemy>();
+        List<StationaryObject> stationaries = new List<StationaryObject>();
+
+        public Map()
+        {
+            
+        }
+
 
     }
 }

@@ -36,18 +36,6 @@ namespace Platform
             }
         }
 
-        private void CheckCollisions()
-        {
-            foreach (var item in gameObjects)
-            {
-                if (item == player) continue;
-
-                if(player.position.Intersects(item.position))
-                {
-                    
-
-                }
-            }
-        }
+        
     }
 }

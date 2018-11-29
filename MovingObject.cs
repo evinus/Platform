@@ -33,7 +33,7 @@ namespace Platform
         {
             drawPos.X = position.X + offset;
             drawPos.Y = position.Y + offset;
-            CheckCollision();
+            
         }
 
         protected virtual void Animate(GameTime gameTime)
