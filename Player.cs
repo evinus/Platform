@@ -12,18 +12,20 @@ namespace Platform
 {
     class Player : MovingObject
     {
-        
-        
-       
+
+
+        GameManager gm;
 
         public Player(Texture2D texMain, Rectangle pos, GameManager gm) : base(texMain,pos,gm)
         {
-
+            this.gm = gm;
+            falling = true;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            spriteBatch.Draw(texMain, position, Color.White);
+
         }
 
         public override void Update(GameTime gameTime)
@@ -31,7 +33,8 @@ namespace Platform
             base.Update(gameTime);
             JumpFalling();
             CheckMoving();
-            CheckGround();
+            
+            CheckCollision();
             position.X += (int)speed.X;
             position.Y += (int)speed.Y;
         }

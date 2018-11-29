@@ -7,20 +7,23 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoLibrary;
+
 
 namespace Platform
 {
-    public class LevelManager
+    public class LevelManager :IGame
     {
-        public Map Map { get; private set; }
+        public Map Map { get; private set; } = new Map();
 
         string mapFileName;
-
-        public LevelManager()
+        GameManager gm;
+        public LevelManager(GameManager gm)
         {
-               
+            this.gm = gm;
+           
         }
+
+
 
         private void LoadMap()
         {
@@ -63,6 +66,16 @@ namespace Platform
 
                 throw;
             }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Map.Draw(spriteBatch);
         }
     }
 }

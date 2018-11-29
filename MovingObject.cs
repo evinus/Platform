@@ -58,23 +58,23 @@ namespace Platform
 
                 if(position.Intersects(item.position))
                 {
-                    if(position.Left <= item.position.Right)
+                    if(position.Left > item.position.Right)
                     {
                         speed.X = 0;
                         position.X = item.position.Right + 1;
                     }
-                    else if(position.Right >= item.position.Left)
+                    else if(position.Right < item.position.Left)
                     {
                         speed.X = 0;
                         position.X = item.position.Left - 1;
                     }
-                    else if(position.Bottom >= item.position.Top)
+                    else if(position.Bottom > item.position.Top)
                     {
                         speed.Y = 0;
-                        position.Y = item.position.Top - 1;
+                        position.Y = item.position.Top - position.Height;
                         falling = false;
                     }
-                    else if(position.Top <= item.position.Bottom)
+                    else if(position.Top < item.position.Bottom)
                     {
                         speed.Y = 0;
                         position.Y = item.position.Bottom + 1;

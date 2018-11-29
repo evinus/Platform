@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Platform
 {
-    class StationaryObject : GameObject
+    public class StationaryObject : GameObject
     {
 
         public StationaryObject(Texture2D texMain, Rectangle pos) : base(texMain,pos)
@@ -18,12 +18,12 @@ namespace Platform
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            
         }
 
         

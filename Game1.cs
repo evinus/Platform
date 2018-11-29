@@ -13,7 +13,7 @@ namespace Platform
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        GameManager gameManager = new GameManager();
+        GameManager gameManager;
 
         public Game1()
         {
@@ -33,8 +33,9 @@ namespace Platform
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            Assetmanager.TexGround1 = Content.Load<Texture2D>("mark");
+            Assetmanager.TexPlayer = Content.Load<Texture2D>("player_spritesheet");
+            gameManager = new GameManager();
         }
 
       
