@@ -68,7 +68,7 @@ namespace Platform
                         speed.X = 0;
                         position.X = item.position.Left - 1;
                     }
-                    else if(position.Bottom > item.position.Top)
+                    else if(position.Bottom > item.position.Top +1)
                     {
                         speed.Y = 0;
                         position.Y = item.position.Top - position.Height;
